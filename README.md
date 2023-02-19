@@ -1,38 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TanStack Query で CRUD を叩いてみる
 
-## Getting Started
+インターン先の業務でフロントエンド関連のタスクを任されている  
+標準搭載の React hooks のみで開発して、後々改修するというのは避けたいので、  
+非同期処理とキャッシュの管理を容易にするためにライブラリを選定する。
 
-First, run the development server:
+## 現在の候補
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- TanStack Query[旧 ReactQuery]
+- SWR
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## TanStack Query のメリット
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+旧版の React Query の情報が多いため、ベストプラクティスの知見がネットに転がってそう  
+解説記事が多い  
+可能性は少なそうだが、今後 Vue 等に利用する場合に流用できる
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## TanStack Query のデメリット
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+旧版の React Query の情報と混在している。  
+公式日本語ドキュメントがない  
+公式ドキュメント(英語)の情報が SWR に比べて多い (SWR の方が綺麗にまとめられている)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## SWR のメリット
 
-## Learn More
+Next を開発している Vercel が開発元  
+公式日本語ドキュメントがある
 
-To learn more about Next.js, take a look at the following resources:
+## SWR のデメリット
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+基本的には React か Next で使う前提  
+正直デメリットはあまり思いつかない
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 現在の構想
 
-## Deploy on Vercel
+現状は TanStack Query でした CRUD を実現していない。  
+SWR を試してみて、問題なさそうなら SWR で行きたい。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**決め手は下記**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 公式ドキュメントが日本語に対応している
+- Next と開発元が一緒
+- ドキュメントの情報が簡素にまとめられている
+- 今後会社のプロジェクトは React に寄せていく方向になるため SWR で問題なさそう
