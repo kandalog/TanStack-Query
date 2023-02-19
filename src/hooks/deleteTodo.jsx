@@ -24,5 +24,5 @@ export const useDeleteTodo = () => {
     deleteMutation.mutate(id);
   };
 
-  return { handleRemoveTodo };
+  return { queryClient, handleRemoveTodo };
 };
