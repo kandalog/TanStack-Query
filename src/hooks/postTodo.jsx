@@ -42,5 +42,5 @@ export const usePostTodo = () => {
     setText(e.target.value);
   };
 
-  return { text, handleSubmit, handleOnChange };
+  return { queryClient, text, handleSubmit, handleOnChange };
 };

@@ -1,12 +1,16 @@
+import { useDeleteTodo } from "@/hooks/deleteTodo";
 import { useGetTodos } from "@/hooks/getTodos";
 import { usePostTodo } from "@/hooks/postTodo";
 
 export const Todo = () => {
   // Get
-  const { data, isLoading, isError, error, status } = useGetTodos();
+  const { data: todos, isLoading, isError, error, status } = useGetTodos();
 
   // POST
   const { text, handleSubmit, handleOnChange } = usePostTodo();
+
+  // Delete
+  const { handleRemoveTodo } = useDeleteTodo();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -20,8 +24,16 @@ export const Todo = () => {
     <>
       <h1>Todo一覧</h1>
       <ul>
-        {data.map((todo) => (
-          <li key={todo.id}>{todo.name}</li>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.name}
+            <button
+              style={{ marginLeft: "0.2em", cursor: "pointer" }}
+              onClick={() => handleRemoveTodo(todo.id)}
+            >
+              削除
+            </button>
+          </li>
         ))}
       </ul>
       <form onSubmit={handleSubmit}>
