@@ -29,12 +29,12 @@ Next を開発している Vercel が開発元
 ## SWR のデメリット
 
 基本的には React か Next で使う前提  
-ネットの記事はReact Queryを使っているものが多い印象  
+ネットの記事はTanStack Queryを使っているものが多い印象  
 
 ## SWRも試したので貼っておく
 
 ## *Get*
-*React Queryと使い方似てる*
+*TanStack Queryと使い方似てる*
 ```ts
 // データフェッチのためのPromiseを返す関数
 const fetcher = async (string) => {
@@ -109,4 +109,4 @@ const handleDelete = (id) => {
 };
 ```
 
-## *更新もReact Queryと同じ感じでいけそう*
+## *更新もTanStack Queryと同じ感じでいけそう*
