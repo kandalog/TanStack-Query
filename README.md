@@ -32,7 +32,7 @@ Next を開発している Vercel が開発元
 ネットの記事はReact Queryを使っているものが多い印象  
 
 ## SWRも試したので貼っておく
-```
+
 ## *Get*
 *React Queryと使い方似てる*
 ```ts
@@ -58,6 +58,7 @@ if (error) {}
 ```
 
 ## *Post*
+
 ```ts
 const addTodo = async (_, { arg }) => {
   const res = await fetch("url", {
@@ -109,4 +110,3 @@ const handleDelete = (id) => {
 ```
 
 ## *更新もReact Queryと同じ感じでいけそう*
-```
