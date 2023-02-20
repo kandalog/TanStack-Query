@@ -29,16 +29,84 @@ Next を開発している Vercel が開発元
 ## SWR のデメリット
 
 基本的には React か Next で使う前提  
-正直デメリットはあまり思いつかない
+ネットの記事はReact Queryを使っているものが多い印象  
 
-## 現在の構想
+## SWRも試したので貼っておく
+```
+## *Get*
+*React Queryと使い方似てる*
+```ts
+// データフェッチのためのPromiseを返す関数
+const fetcher = async (string) => {
+  const res = await fetch("url");
+  
+  // axiosの場合500系は自動でerrorを投げる
+  if (!res.ok) {
+    const json = await res.json();
+    throw new Error(json.message);
+  }
 
-現状は TanStack Query でのみ CRUD を作成した。  
-SWR を試してみて、問題なさそうなら SWR を採用したい。
+  return res.json();
+};
 
-**決め手は下記**
+// keyは文字列 配列 null  keyの値はfetcherに渡される
+const { data, error, isLoading } = useSWR(hoge, fetcher, options)
 
-- 公式ドキュメントが日本語に対応している
-- Next と開発元が一緒
-- ドキュメントの情報が簡素にまとめられている
-- 今後会社のプロジェクトは React に寄せていく方向になるため SWR で問題ない
+if (isLoading) {}
+
+if (error) {}
+```
+
+## *Post*
+```ts
+const addTodo = async (_, { arg }) => {
+  const res = await fetch("url", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: arg,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+
+  return res.json();
+};
+
+// 以下 Component内で行う
+const [text, setText] = useState()
+const { trigger } = useSWRMutation("todos", addTodo);
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  trigger(text); // 引数がaddTodoの第2引数に渡される
+};
+```
+
+## 削除
+```ts
+const deleteTodo = async (_, { arg }) => {
+  const res = await fetch(`http://localhost:4000/todos/${arg}`, {
+    method: "DELETE",
+  });
+  
+  if (!res.ok) {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+  
+  return res.json();
+};
+
+const { trigger } = useSWRMutation("todos", deleteTodo);
+
+const handleDelete = (id) => {
+  trigger(id);
+};
+```
+
+## *更新もReact Queryと同じ感じでいけそう*
+```
